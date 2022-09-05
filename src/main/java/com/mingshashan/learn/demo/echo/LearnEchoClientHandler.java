@@ -1,19 +1,22 @@
-package com.mingshashan.learn.echo;
+package com.mingshashan.learn.demo.echo;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
-public class EchoClientHandler extends ChannelInboundHandlerAdapter {
+import java.nio.charset.Charset;
+
+public class LearnEchoClientHandler extends ChannelInboundHandlerAdapter {
 
     private final ByteBuf firstMessage;
 
-    public EchoClientHandler() {
+    public LearnEchoClientHandler() {
         firstMessage = Unpooled.buffer(256);
-        for (int i = 0; i < firstMessage.capacity(); i++) {
-            firstMessage.writeByte((byte) i);
-        }
+        firstMessage.writeCharSequence("Hello World!", Charset.defaultCharset());
+//        for (int i = 0; i < firstMessage.capacity(); i++) {
+//            firstMessage.writeByte((byte) i);
+//        }
     }
 
     @Override

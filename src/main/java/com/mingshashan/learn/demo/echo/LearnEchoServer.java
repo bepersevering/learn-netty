@@ -1,4 +1,4 @@
-package com.mingshashan.learn.echo;
+package com.mingshashan.learn.demo.echo;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -8,7 +8,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
-public class EchoServer {
+public class LearnEchoServer {
 
     public static void main(String[] args) {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
@@ -20,13 +20,12 @@ public class EchoServer {
             serverBootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.SO_BACKLOG, 100)
-                    .handler(new LoggingHandler(LogLevel.DEBUG))
+                    .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        protected void initChannel(SocketChannel ch) throws Exception {
+                        protected void initChannel(SocketChannel ch) {
                             ChannelPipeline channelPipeline = ch.pipeline();
-                            channelPipeline.addLast(new LoggingHandler(LogLevel.DEBUG));
-                            channelPipeline.addLast(new EchoServerHandler());
+                            channelPipeline.addLast(new LearnEchoServerHandler());
                         }
                     });
             // start server
